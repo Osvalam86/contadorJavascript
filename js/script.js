@@ -1,27 +1,58 @@
+(function IFEE() {
+  //Uso estricto
+  'use strict'
+  function accountant() {
+    /*
+     *lexical Scope
+     *Variables con Scope global
+    */
+    let contConsole = document.querySelector('#contenedorContador');
+    let btnIncrease = document.querySelector('#btnIncremento');
+    let btnDecrement = document.querySelector('#btnDecremento');
+    let intervals;
+    let number = 0;
+    let increase = false;
+    let decrease = false;
+    let htmlDecrease = `<h1>DECREMENTO</h1>`;
 
-  (function contador(){
+    function btninc() {
+      if (increase) {
+        number++;
+        var valor = `${htmlDecrease}
+        ${number}
+        `;
+      }
 
-    function numeros(){
-      var contador = 0;
+      if (decrease) {
+        number--;
+      }
 
-      var saludo = function(){
-        contador++;
-        console.log(contador);
+      contConsole.textContent = valor;
+      console.log(number);
+      return number;
+    };
 
-        //setTimeout(saludo, 1500);
-      };
-        //saludo();
-
-        //interval
-
-        let intervalo = setInterval(saludo, 1500);
-
-        document.querySelector('#btn').addEventListener('click', function(){
-          clearInterval(intervalo);
-        })
+    function interval() {
+      intervals = setInterval(btninc, 1000);
     }
 
-    numeros();
+    interval();
 
+    btnIncrease.addEventListener('click', function () {
+          console.log('clicked');
+          increase = true;
+          decrease = false;
+        });
 
-  }())
+    btnDecrement.addEventListener('click', function () {
+        console.log('cliked');
+
+        increase = false;
+        decrease = true;
+      });
+
+  }
+
+  accountant();
+
+}());
